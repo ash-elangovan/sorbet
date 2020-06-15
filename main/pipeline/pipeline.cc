@@ -1227,7 +1227,6 @@ core::FileHash computeFileHash(shared_ptr<core::File> forWhat, spdlog::logger &l
     const static options::Options emptyOpts{};
     unique_ptr<core::GlobalState> lgs = make_unique<core::GlobalState>((make_shared<core::ErrorQueue>(logger, logger)));
     lgs->initEmpty();
-    lgs->errorQueue->ignoreFlushes = true;
     lgs->silenceErrors = true;
     core::FileRef fref;
     {

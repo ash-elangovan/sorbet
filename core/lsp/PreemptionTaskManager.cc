@@ -49,7 +49,6 @@ bool PreemptionTaskManager::tryRunScheduledPreemptionTask(core::GlobalState &gs)
         // old error queue and replace so new operation starts fresh
         auto previousErrorQueue = move(gs.errorQueue);
         gs.errorQueue = make_shared<core::ErrorQueue>(previousErrorQueue->logger, previousErrorQueue->tracer);
-        gs.errorQueue->ignoreFlushes = true;
         gs.tracer().debug("[Typechecker] Beginning preemption task.");
         preemptTask->run();
         gs.tracer().debug("[Typechecker] Preemption task complete.");

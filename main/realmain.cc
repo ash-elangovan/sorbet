@@ -477,7 +477,6 @@ int realmain(int argc, char *argv[]) {
         logger->warn("LSP is disabled in sorbet-orig for faster builds");
         return 1;
 #else
-        gs->errorQueue->ignoreFlushes = true;
         logger->debug("Starting sorbet version {} in LSP server mode. "
                       "Talk ‘\\r\\n’-separated JSON-RPC to me. "
                       "More details at https://microsoft.github.io/language-server-protocol/specification."

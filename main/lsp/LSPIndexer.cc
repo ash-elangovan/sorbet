@@ -148,7 +148,6 @@ void LSPIndexer::initialize(LSPFileUpdates &updates, WorkerPool &workers) {
     // going to use it on typechecker thread for this one operation.
     auto savedErrorQueue = initialGS->errorQueue;
     initialGS->errorQueue = make_shared<core::ErrorQueue>(savedErrorQueue->logger, savedErrorQueue->tracer);
-    initialGS->errorQueue->ignoreFlushes = true;
 
     vector<ast::ParsedFile> indexed;
     Timer timeit(config->logger, "initial_index");
@@ -245,7 +244,6 @@ LSPFileUpdates LSPIndexer::commitEdit(SorbetWorkspaceEditParams &edit) {
         // which one it will be.
         initialGS->errorQueue =
             make_shared<core::ErrorQueue>(initialGS->errorQueue->logger, initialGS->errorQueue->tracer);
-        initialGS->errorQueue->ignoreFlushes = true;
         auto trees = pipeline::index(initialGS, frefs, config->opts, *emptyWorkers, kvstore);
         initialGS->errorQueue->drainWithQueryResponses(); // Clear error queue; we don't care about errors here.
         update.updatedFileIndexes.resize(trees.size());

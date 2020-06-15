@@ -23,7 +23,6 @@ void setRequiredLSPOptions(core::GlobalState &gs, options::Options &options) {
     }
 
     // If we don't tell the errorQueue to ignore flushes, then we won't get diagnostic messages.
-    gs.errorQueue->ignoreFlushes = true;
 
     // Ensure LSP is enabled.
     options.runLSP = true;
