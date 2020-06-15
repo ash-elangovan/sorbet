@@ -1237,7 +1237,7 @@ core::FileHash computeFileHash(shared_ptr<core::File> forWhat, spdlog::logger &l
     vector<ast::ParsedFile> single;
 
     single.emplace_back(pipeline::indexOne(emptyOpts, *lgs, fref));
-    auto errs = lgs->errorQueue->drainAllErrors();
+    lgs->errorQueue->drainAllErrors();
     core::Context ctx(*lgs, core::Symbols::root(), single[0].file);
     auto allNames = getAllNames(ctx, single[0].tree);
     auto workers = WorkerPool::create(0, lgs->tracer());

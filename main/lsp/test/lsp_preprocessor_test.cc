@@ -114,7 +114,7 @@ public:
         preemptManager->assertTypecheckMutexHeld();
         // Emulate behavior of most LSP Tasks and drain all diagnostics and query responses.
         // This should never drain error queue items from the preempted task.
-        gs.errorQueue->drainWithQueryResponses();
+        gs.errorQueue->drainAllErrors();
         runCount++;
     }
 };

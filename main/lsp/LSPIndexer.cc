@@ -166,7 +166,7 @@ void LSPIndexer::initialize(LSPFileUpdates &updates, WorkerPool &workers) {
         }
         // Clear error queue.
         // (Note: Flushing is disabled in LSP mode, so we have to drain.)
-        initialGS->errorQueue->drainWithQueryResponses();
+        initialGS->errorQueue->drainAllErrors();
     }
 
     pipeline::computeFileHashes(initialGS->getFiles(), *config->logger, workers);
@@ -245,7 +245,7 @@ LSPFileUpdates LSPIndexer::commitEdit(SorbetWorkspaceEditParams &edit) {
         initialGS->errorQueue =
             make_shared<core::ErrorQueue>(initialGS->errorQueue->logger, initialGS->errorQueue->tracer);
         auto trees = pipeline::index(initialGS, frefs, config->opts, *emptyWorkers, kvstore);
-        initialGS->errorQueue->drainWithQueryResponses(); // Clear error queue; we don't care about errors here.
+        initialGS->errorQueue->drainAllErrors(); // Clear error queue; we don't care about errors here.
         update.updatedFileIndexes.resize(trees.size());
         for (auto &ast : trees) {
             const int i = fileToPos[ast.file.id()];
